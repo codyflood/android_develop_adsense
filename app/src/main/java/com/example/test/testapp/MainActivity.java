@@ -1,5 +1,6 @@
 package com.example.test.testapp;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,6 +11,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
+
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.drive.Drive;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
+import android.widget.ScrollView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,10 +29,41 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+/*
         TableLayout todoTable = (TableLayout) findViewById(R.id.todoTable);
-        TableRow tableRow = new TableRow(this);
 
+        for(int i = 0; i < 50; i++) {
+            TableRow tableRow = new TableRow(this);
+            tableRow.setBackgroundColor(Color.YELLOW);
+
+            TextView textView = new TextView(this);
+            textView.setText("Dude! Quit Slacking!");
+
+            tableRow.addView(textView);
+            tableRow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Snackbar.make(v, "I did a thing!", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            });
+
+            todoTable.addView(tableRow);
+        }
+*/
+        GoogleApiClient client = new GoogleApiClient.Builder(this)
+                .addApi(Drive.API)
+                .addScope(Drive.SCOPE_FILE)
+                .build();
+
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+        //ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
+        //scrollView.addView(mAdView);
+
+        /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        */
     }
 
     @Override
